@@ -26,9 +26,25 @@
 		 */
 		showTitle?: boolean;
 		playButton?: Snippet;
+		/**
+		 * Width of the video container (e.g. '100%', '500px')
+		 */
+		width?: string;
+		/**
+		 * Height of the video container (e.g. '100%', '300px')
+		 */
+		height?: string;
 	}
 
-	let { id, title = '', thumbnail = 'sddefault', showTitle = true, playButton }: Props = $props();
+	let { 
+		id, 
+		title = '', 
+		thumbnail = 'sddefault', 
+		showTitle = true, 
+		playButton,
+		width = '100%',
+		height = '100%'
+	}: Props = $props();
 
 	const params = new URLSearchParams({ autoplay: '1', playsinline: '1' });
 
@@ -50,7 +66,7 @@
 	target="_blank"
 	rel="noopener noreferrer"
 	class="Youtube"
-	style="background-image: url({thumbnailUrl});"
+	style="background-image: url({thumbnailUrl}); --width: {width}; --height: {height};"
 	onclick={handleClick}
 >
 	{#if showVideo}
@@ -95,7 +111,8 @@
 		background-position: center center;
 		background-size: cover;
 		cursor: pointer;
-		max-width: 720px;
+		width: var(--width);
+		height: var(--height);
 	}
 
 	:global(.Youtube:hover .PlayButton) {
